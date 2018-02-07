@@ -9,7 +9,8 @@ namespace Trader
     {
         private readonly int _periods;
         private int _inputLength;
-        LinkedList<RSI_INDEX> _rsiMove = new LinkedList<RSI_INDEX>();
+
+        LinkedList<RSI_INDEX> _rsiPeriodBuffer = new LinkedList<RSI_INDEX>();
 
         public RSI(int periods = 14)
         {
@@ -33,7 +34,7 @@ namespace Trader
             decimal avgGain = 0;
             decimal avgLoss = 0;
 
-            if (_rsiMove.Count == 0)
+            if (_rsiPeriodBuffer.Count == 0)
             {
                 decimal sumOfGains = 0;
                 decimal sumOfLosses = 0;
@@ -60,7 +61,7 @@ namespace Trader
             }
             else
             {
-                var currentIndex = _rsiMove.First.Value;
+                var currentIndex = _rsiPeriodBuffer.First.Value;
 
                 var currentGain = diffInPrice > 0 ? diffInPrice : 0;
                 var currentLosse = diffInPrice < 0 ? (-1) * diffInPrice : 0;
@@ -91,13 +92,13 @@ namespace Trader
                 AvgLoss = avgLoss
             };
 
-            _rsiMove.AddFirst(index);
+            _rsiPeriodBuffer.AddFirst(index);
         }
 
-        public bool CollectingData => _rsiMove.Count == 0;
-        public IEnumerable<RSI_INDEX> Values => _rsiMove.ToList();
+        public bool CollectingData => _rsiPeriodBuffer.Count == 0;
+        public IEnumerable<RSI_INDEX> Values => _rsiPeriodBuffer.ToList();
 
-        public RSI_INDEX Current => _rsiMove.First.Value;
+        public RSI_INDEX Current => _rsiPeriodBuffer.First.Value;
     }
 
     public struct RSI_INDEX
