@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trader.Tests", "Trader.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trader.Runner", "Trader.Runner\Trader.Runner.csproj", "{7B091117-6B39-4D25-A8A2-9A83EF4FC20B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trader.Performance", "Trader.Performance\Trader.Performance.csproj", "{F6A68864-D1B5-41C4-BEFF-9BE9EEACFEFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7B091117-6B39-4D25-A8A2-9A83EF4FC20B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B091117-6B39-4D25-A8A2-9A83EF4FC20B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B091117-6B39-4D25-A8A2-9A83EF4FC20B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A68864-D1B5-41C4-BEFF-9BE9EEACFEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A68864-D1B5-41C4-BEFF-9BE9EEACFEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A68864-D1B5-41C4-BEFF-9BE9EEACFEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A68864-D1B5-41C4-BEFF-9BE9EEACFEFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
