@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Trader.Exchanges;
 
 namespace Trader
@@ -18,11 +15,28 @@ namespace Trader
             _oversold = oversold;
         }
 
-        public void OnPeriod(Span<Trade> trades)
+        public event EventHandler Sell;
+        public event EventHandler Buy;
+
+        public void Execute(Span<Trade> trades)
         {
             _rsi.Calculate(trades.Slice(0, _rsi._periods));
+
+            if (_rsi.CollectingData)
+                return;
+
+            if (_rsi.Current.RSI > _overbought)
+            {
+                BuySignal();
+            }
+            else if (_rsi.Current.RSI < _oversold)
+            {
+                SellSignal();
+            }
         }
 
+        private void BuySignal() => Buy?.Invoke(this, EventArgs.Empty);
+        private void SellSignal() => Sell?.Invoke(this, EventArgs.Empty);
 
         private bool CollectionData => _rsi.CollectingData;
 

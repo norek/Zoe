@@ -9,6 +9,9 @@ namespace Trader.Runner
 {
     class Program
     {
+        static RSI_Strategy strategy = new RSI_Strategy();
+        static LinkedList<Trade> _trades = new LinkedList<Trade>();
+
         static void Main(string[] args)
         {
             Poloniex pol = new Poloniex();
@@ -18,6 +21,9 @@ namespace Trader.Runner
             int period = 2;
             DateTime startDate = trades.First().Date;
             DateTime periodDate = startDate;
+
+            strategy.Buy += Strategy_Buy;
+            strategy.Sell += Strategy_Sell;
 
             foreach (var trade in trades)
             {
@@ -34,9 +40,18 @@ namespace Trader.Runner
 
             Console.WriteLine("Hello World!");
         }
-        static RSI_Strategy strategy = new RSI_Strategy();
 
-        static LinkedList<Trade> _trades = new LinkedList<Trade>();
+        private static void Strategy_Sell(object sender, EventArgs e)
+        {
+            Console.Write("   Sell");
+        }
+
+        private static void Strategy_Buy(object sender, EventArgs e)
+        {
+            Console.Write("   Buy");
+        }
+
+
 
         private static void OnPeriod(Trade trade)
         {
@@ -49,7 +64,7 @@ namespace Trader.Runner
 
             Report(trade);
 
-            strategy.OnPeriod(_trades.ToArray());
+            strategy.Execute(_trades.ToArray());
 
             Console.Write(" " + strategy.ToString());
         }

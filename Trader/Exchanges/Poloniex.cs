@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Trader.Exchanges
 {
-    public class Poloniex
+    public class Poloniex: IExchange
     {
         HttpClient _client = new HttpClient();
 
