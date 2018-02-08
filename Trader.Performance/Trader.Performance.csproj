@@ -7,6 +7,11 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.10.12" />
+    <PackageReference Include="System.Memory" Version="4.4.0-preview1-25305-02" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Trader\Trader.csproj" />
   </ItemGroup>
 
 </Project>

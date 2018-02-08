@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Trader.Exchanges;
 using Xunit;
 
 namespace Trader.Tests
@@ -37,7 +38,7 @@ namespace Trader.Tests
         public void Less_Data_Then_Periods_Results_CollectionData_And_Empty_Current_Values(decimal[] input, int numberOfPeriods)
         {
             RSI rsi = new RSI(numberOfPeriods);
-            rsi.Calculate(input);
+            rsi.Calculate(input.AsTradesWitRates());
 
             Assert.True(rsi.CollectingData);
             Assert.Empty(rsi.Values);
@@ -76,10 +77,11 @@ namespace Trader.Tests
         public void Calculate_Success(decimal[] inputStream, int periods)
         {
             RSI rsi = new RSI(periods);
+            Trade[] trades = inputStream.AsTradesWitRates();
 
-            for (int i = 0; i < inputStream.Length; i++)
+            for (int i = 0; i < trades.Length - periods; i++)
             {
-                rsi.Calculate(inputStream.Skip(i).Take(periods + 1).ToArray());
+                rsi.Calculate(trades.AsSpan().Slice(i,periods + 1));
             }
 
             Assert.False(rsi.CollectingData);
@@ -118,12 +120,13 @@ namespace Trader.Tests
         {
             int periods = 2;
             decimal[] inputStream = new decimal[4] { 1, 2, 3, 4 };
+            Trade[] trades = inputStream.AsTradesWitRates();
 
             RSI rsi = new RSI(periods);
 
-            for (int i = 0; i < inputStream.Length; i++)
+            for (int i = 0; i < trades.Length - periods; i++)
             {
-                rsi.Calculate(inputStream.Skip(i).Take(periods + 1).ToArray());
+                rsi.Calculate(trades.AsSpan().Slice(i, periods + 1));
             }
         }
         [Fact]
@@ -131,12 +134,13 @@ namespace Trader.Tests
         {
             int periods = 2;
             decimal[] inputStream = new decimal[4] { 4, 3, 2, 1 };
+            Trade[] trades = inputStream.AsTradesWitRates();
 
             RSI rsi = new RSI(periods);
 
-            for (int i = 0; i < inputStream.Length; i++)
+            for (int i = 0; i < trades.Length - periods; i++)
             {
-                rsi.Calculate(inputStream.Skip(i).Take(periods + 1).ToArray());
+                rsi.Calculate(trades.AsSpan().Slice(i, periods + 1));
             }
         }
     }

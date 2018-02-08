@@ -261,4 +261,4 @@ __pycache__/
 *.pyc
 
 # Custom
- **/*.BenchmarkDotNet.Artifacts/*
+Trader.Performance/BenchmarkDotNet.Artifacts/*

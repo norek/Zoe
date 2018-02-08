@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trader", "Trader\Trader.csproj", "{128B8184-8742-45F8-BC3E-F9C7442937B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trader", "Trader\Trader.csproj", "{128B8184-8742-45F8-BC3E-F9C7442937B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trader.Tests", "Trader.Tests\Trader.Tests.csproj", "{32A17109-DB5F-40E7-A314-F8774B4F3EFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trader.Tests", "Trader.Tests\Trader.Tests.csproj", "{32A17109-DB5F-40E7-A314-F8774B4F3EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trader.Runner", "Trader.Runner\Trader.Runner.csproj", "{7B091117-6B39-4D25-A8A2-9A83EF4FC20B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trader.Runner", "Trader.Runner\Trader.Runner.csproj", "{7B091117-6B39-4D25-A8A2-9A83EF4FC20B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trader.Performance", "Trader.Performance\Trader.Performance.csproj", "{F6A68864-D1B5-41C4-BEFF-9BE9EEACFEFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trader.Performance", "Trader.Performance\Trader.Performance.csproj", "{F6A68864-D1B5-41C4-BEFF-9BE9EEACFEFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

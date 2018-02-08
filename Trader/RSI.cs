@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Trader.Exchanges;
 
 namespace Trader
 {
     public class RSI
     {
-        private readonly int _periods;
+        public readonly int _periods;
         private int _inputLength;
 
         LinkedList<RSI_INDEX> _rsiPeriodBuffer = new LinkedList<RSI_INDEX>();
-
         public RSI(int periods = 14)
         {
             if (periods <= 0)
@@ -45,6 +45,80 @@ namespace Trader
                     var next = values[values.Length - _inputLength + i + 1];
 
                     var diff = next - prev;
+
+                    if (diff > 0)
+                    {
+                        sumOfGains += diff;
+                    }
+                    else if (diff < 0)
+                    {
+                        sumOfLosses += (-1) * diff;
+                    }
+                }
+
+                avgGain = sumOfGains / _periods;
+                avgLoss = sumOfLosses / _periods;
+            }
+            else
+            {
+                var currentIndex = _rsiPeriodBuffer.First.Value;
+
+                var currentGain = diffInPrice > 0 ? diffInPrice : 0;
+                var currentLosse = diffInPrice < 0 ? (-1) * diffInPrice : 0;
+
+                avgGain = ((currentIndex.AvgGain * (_periods - 1)) + currentGain) / _periods;
+                avgLoss = ((currentIndex.AvgLoss * (_periods - 1)) + currentLosse) / _periods;
+            }
+
+            decimal rs = 0;
+            decimal rsi = 0;
+
+            if (avgLoss == 0)
+            {
+                rs = 100;
+                rsi = 100;
+            }
+            else if (avgGain != 0)
+            {
+                rs = (avgGain / _periods) / (avgLoss / _periods);
+                rsi = 100 - (100 / (1 + rs));
+            }
+
+            RSI_INDEX index = new RSI_INDEX
+            {
+                RSI = rsi,
+                RS = rs,
+                AvgGain = avgGain,
+                AvgLoss = avgLoss
+            };
+
+            _rsiPeriodBuffer.AddFirst(index);
+        }
+
+        public void Calculate(Span<Trade> values)
+        {
+            if (values.Length < _inputLength)
+                return;
+
+            var currentPrice = values[values.Length - 1];
+            var previous = values[values.Length - 2];
+
+            var diffInPrice = currentPrice.Rate - previous.Rate;
+
+            decimal avgGain = 0;
+            decimal avgLoss = 0;
+
+            if (_rsiPeriodBuffer.Count == 0)
+            {
+                decimal sumOfGains = 0;
+                decimal sumOfLosses = 0;
+
+                for (int i = 0; i < _inputLength - 1; i++)
+                {
+                    var prev = values[values.Length - _inputLength + i];
+                    var next = values[values.Length - _inputLength + i + 1];
+
+                    var diff = next.Rate - prev.Rate;
 
                     if (diff > 0)
                     {
