@@ -17,8 +17,10 @@ namespace Trader.Backfill
 
         public async Task Execute(BackFillOptions options)
         {
+            await _storage.CreateIfNotExists(options.Asset);
+
             IEnumerable<Trade> trades = await _exchange.GetTradeHistory(options.Asset, options.DateFrom, options.DateTo);
-            await _storage.StoreTrades(trades);
+            await _storage.StoreTrades(options.Asset, trades);
         }
     }
 }
