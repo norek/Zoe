@@ -15,7 +15,7 @@ namespace Trader.Runner
         static void Main(string[] args)
         {
             Poloniex pol = new Poloniex();
-            var tradeHistory = pol.GetTradeHistory(DateTime.UtcNow.AddDays(-1), DateTime.UtcNow).Result;
+            var tradeHistory = pol.GetTradeHistory("USDT_BTC", DateTime.UtcNow.AddDays(-1), DateTime.UtcNow).Result;
 
             var trades = tradeHistory.Reverse();
             int period = 2;
