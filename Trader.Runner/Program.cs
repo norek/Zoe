@@ -4,6 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Trader.Exchanges;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Autofac;
 
 namespace Trader.Runner
 {
@@ -14,6 +17,11 @@ namespace Trader.Runner
 
         static void Main(string[] args)
         {
+            ContainerBuilder builder = new ContainerBuilder();
+            builder.RegisterModule<ConfigurationModule>();
+
+            var container = builder.Build();
+
             Poloniex pol = new Poloniex();
             var tradeHistory = pol.GetTradeHistory("USDT_BTC", DateTime.UtcNow.AddDays(-1), DateTime.UtcNow).Result;
 
@@ -39,6 +47,7 @@ namespace Trader.Runner
 
 
             Console.WriteLine("Hello World!");
+            Console.ReadLine();
         }
 
         private static void Strategy_Sell(object sender, EventArgs e)
