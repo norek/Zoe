@@ -1,5 +1,8 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
+using RabbitMQ.Client;
+using RawRabbit;
+using RawRabbit.Instantiation;
 using System.IO;
 
 namespace Trader.Runner
@@ -13,8 +16,15 @@ namespace Trader.Runner
                 var configurationBuilder = new ConfigurationBuilder()
                                      .SetBasePath(Directory.GetCurrentDirectory())
                                      .AddJsonFile("appsettings.json");
+
                 return configurationBuilder.Build();
             }).SingleInstance();
+
+            builder
+             .Register<IInstanceFactory>(c => RawRabbitFactory.CreateInstanceFactory())
+             .SingleInstance();
+            builder
+                .Register<IBusClient>(c => c.Resolve<IInstanceFactory>().Create());
         }
     }
 }

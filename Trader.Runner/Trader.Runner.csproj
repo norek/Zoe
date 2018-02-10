@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="RawRabbit" Version="2.0.0-rc3" />
+    <PackageReference Include="RawRabbit.Operations.Publish" Version="2.0.0-rc3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Trader\Trader.csproj" />
   </ItemGroup>
 

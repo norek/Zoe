@@ -22,9 +22,12 @@ namespace Trader.Backfill
             _database = database;
         }
 
-        public Task CreateIfNotExists(string name)
+        public async Task CreateIfNotExists(string name)
         {
-            return _database.CreateCollectionAsync(name);
+            /// for debug purpose only;
+            await _database.DropCollectionAsync(name);
+
+            await _database.CreateCollectionAsync(name);
         }
 
         public Task StoreTrades(string name, IEnumerable<Trade> trades)
