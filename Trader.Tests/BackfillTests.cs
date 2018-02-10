@@ -19,7 +19,7 @@ namespace Trader.Tests
             _exchange = Substitute.For<IExchange>();
             _storage = Substitute.For<IBackfillStorage>();
 
-            _sut = new Backfill.Backfill(_exchange, _storage);
+            _sut = new Backfill.Backfill(_exchange, _storage, null);
         }
 
         [Theory]
