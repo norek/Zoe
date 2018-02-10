@@ -1,17 +1,8 @@
-﻿using Autofac;
-using Microsoft.Extensions.Configuration;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using RawRabbit.Channel.Abstraction;
-using RawRabbit.Configuration;
-using RawRabbit.Instantiation;
-using RawRabbit.vNext;
+﻿using Microsoft.Extensions.Configuration;
 using RawRabbit;
+using RawRabbit.Instantiation;
 using System;
 using System.IO;
-using System.Text;
-using RawRabbit.Extensions;
-using RawRabbit.Operations.Subscribe;
 using System.Threading.Tasks;
 using Trader.Messages;
 

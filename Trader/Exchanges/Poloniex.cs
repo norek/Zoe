@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -10,9 +11,9 @@ namespace Trader.Exchanges
     {
         HttpClient _client = new HttpClient();
 
-        public Poloniex()
+        public Poloniex(IConfiguration configuration)
         {
-            _client.BaseAddress = new Uri("https://poloniex.com/");
+            _client.BaseAddress = new Uri(configuration["exchanges:poloniex:uri"]);
         }
 
         public async Task<IEnumerable<Trade>> GetTradeHistory(string asset, DateTime dateFrom, DateTime dateTo)

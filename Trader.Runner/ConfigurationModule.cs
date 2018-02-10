@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
-using RabbitMQ.Client;
 using RawRabbit;
 using RawRabbit.Instantiation;
 using System.IO;

@@ -1,18 +1,12 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Trader.Exchanges;
-using Microsoft.Extensions.Configuration;
-using System.IO;
-using Autofac;
-using Trader.Framework.Ioc;
-using Trader.Framework;
 using Trader.Backfill;
-using RabbitMQ.Client;
-using System.Text;
-using RawRabbit;
+using Trader.Exchanges;
+using Trader.Framework;
+using Trader.Framework.Ioc;
 
 namespace Trader.Runner
 {
@@ -26,7 +20,7 @@ namespace Trader.Runner
             builder.RegisterModule<TraderModule>();
 
             var container = builder.Build();
-            
+
             using (var scope = container.BeginLifetimeScope())
             {
                 var backfill = scope.Resolve<IBackFill>();
