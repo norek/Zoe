@@ -2,7 +2,7 @@
 
 namespace Trader.Backfill
 {
-    struct BackFillOptions
+    public struct BackFillOptions
     {
         public BackFillOptions(DateTime dateFrom, DateTime dateTo, string asset) : this()
         {
