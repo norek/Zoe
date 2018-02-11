@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Trader.Tests.Integration": {
+      "commandName": "Project"
+    },
+    "TradeCaretaker.Tests.Integration": {
+      "commandName": "Project"
+    }
+  }
+}
