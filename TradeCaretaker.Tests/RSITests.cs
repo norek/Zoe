@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TradeCaretaker.Exchanges;
+using TradeCaretaker.Indicators;
 using Xunit;
 
 namespace TradeCaretaker.Tests

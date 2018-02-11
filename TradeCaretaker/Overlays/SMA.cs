@@ -1,4 +1,6 @@
-﻿namespace TradeCaretaker
+﻿using System;
+
+namespace TradeCaretaker.Overlays
 {
     public class SMA
     {
@@ -41,6 +43,10 @@
 
         public static decimal CalculateAvarage(decimal[] values, int length)
         {
+            if (values.Length < 1) return 0;
+
+            if (length < 1 || length > values.Length) throw new ArgumentException(nameof(length));
+
             decimal sun = 0;
 
             for (var i = 0; i < length; i++) sun += values[i];

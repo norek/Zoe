@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TradeCaretaker
+namespace TradeCaretaker.Overlays
 {
     public class EMA
     {

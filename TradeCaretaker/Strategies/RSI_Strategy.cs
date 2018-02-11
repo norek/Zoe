@@ -1,13 +1,15 @@
 ﻿using System;
 using TradeCaretaker.Exchanges;
+using TradeCaretaker.Indicators;
 
-namespace TradeCaretaker
+namespace TradeCaretaker.Strategies
 {
     public class RSI_Strategy
     {
         private readonly int _overbought;
         private readonly int _oversold;
-        private readonly RSI _rsi = new RSI(14);
+
+        private readonly RSI _rsi = new RSI();
 
         public RSI_Strategy(int overbought = 70, int oversold = 30)
         {

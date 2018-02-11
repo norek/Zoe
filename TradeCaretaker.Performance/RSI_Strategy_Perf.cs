@@ -2,6 +2,7 @@
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using TradeCaretaker.Exchanges;
+using TradeCaretaker.Strategies;
 
 namespace TradeCaretaker.Performance
 {

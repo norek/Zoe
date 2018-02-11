@@ -1,4 +1,5 @@
 ﻿using System;
+using BenchmarkDotNet.Reports;
 using BenchmarkDotNet.Running;
 
 namespace TradeCaretaker.Performance
@@ -7,9 +8,8 @@ namespace TradeCaretaker.Performance
     {
         private static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<RSI_Strategy_Perf>();
+            Summary summary = BenchmarkRunner.Run<SmaBenchmark>();
 
-            Console.WriteLine("Whatsuup?");
             Console.ReadLine();
         }
     }

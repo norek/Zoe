@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TradeCaretaker.Exchanges;
 
-namespace TradeCaretaker
+namespace TradeCaretaker.Indicators
 {
     public class RSI
     {

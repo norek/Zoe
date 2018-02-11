@@ -7,6 +7,7 @@ using TradeCaretaker.Backfill;
 using TradeCaretaker.Exchanges;
 using TradeCaretaker.Framework;
 using TradeCaretaker.Framework.Ioc;
+using TradeCaretaker.Strategies;
 
 namespace TradeCaretaker.Runner
 {
