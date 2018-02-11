@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RawRabbit;
 using TradeCaretaker.Backfill;
 using TradeCaretaker.Exchanges;
+using TradeCaretaker.Messages;
 using Xunit;
 
 namespace TradeCaretaker.Tests
@@ -13,13 +15,15 @@ namespace TradeCaretaker.Tests
         private readonly IExchange _exchange;
         private readonly IBackfillStorage _storage;
         private readonly IBackFill _sut;
+        private readonly IBusClient _busClient;
 
         public BackfillTests()
         {
             _exchange = Substitute.For<IExchange>();
             _storage = Substitute.For<IBackfillStorage>();
+            _busClient = Substitute.For<IBusClient>();
 
-            _sut = new Backfill.Backfill(_exchange, _storage, null);
+            _sut = new Backfill.Backfill(_exchange, _storage, _busClient);
         }
 
         [Theory]
@@ -39,9 +43,12 @@ namespace TradeCaretaker.Tests
             await _sut.Execute(new BackFillOptions(dateFrom, dateTo, "no_matter"));
 
             //assert
-            await _storage.Received(expecetedCalls).StoreTrades("no_matter", Arg.Any<IEnumerable<Trade>>());
-            await _exchange.Received(expecetedCalls)
+            await _storage.ReceivedWithAnyArgs(expecetedCalls).StoreTrades("no_matter", Arg.Any<IEnumerable<Trade>>());
+            await _exchange.ReceivedWithAnyArgs(expecetedCalls)
                 .GetTradeHistory("no_matter", Arg.Any<DateTime>(), Arg.Any<DateTime>());
+
+            await _busClient.ReceivedWithAnyArgs(expecetedCalls)
+                .PublishAsync(Arg.Any<BackFillStageCompleted>());
         }
     }
 }
