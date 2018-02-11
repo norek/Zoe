@@ -1,9 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using RawRabbit;
 using RawRabbit.Instantiation;
+using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using TradeCaretaker.Messages;
 
 namespace TradeCaretaker.ConsoleVisualizer
@@ -34,6 +35,21 @@ namespace TradeCaretaker.ConsoleVisualizer
                     Console.Write($"  {command.Current} / {command.TotalNumber}");
                     Console.ResetColor();
                     Console.WriteLine();
+                });
+
+                client.SubscribeAsync<PeriodClosed>(async command =>
+                {
+                    Thread.Sleep(100);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(command.DateTime);
+
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write("   " + Math.Round(command.Price, 4));
+                    Console.ResetColor();
+
+                    Console.Write("    " + Math.Round(command.Quantity, 4));
+                    Console.WriteLine("   ");
+
                 });
 
                 Console.ReadLine();
