@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System;
+using System.Threading.Tasks;
 using TradeCaretaker.Exchanges;
 
 namespace TradeCaretaker.Performance
@@ -39,7 +40,7 @@ namespace TradeCaretaker.Performance
         public decimal Do()
         {
 
-            _perioder.Periodify(_input, _startDate, _endDate, 5, trade => { });
+            _perioder.Periodify(_input, _startDate, _endDate, 5, (date, trade) => Task.FromResult(0)).Wait();
             return 2;
         }
     }

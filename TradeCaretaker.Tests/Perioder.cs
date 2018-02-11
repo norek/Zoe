@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TradeCaretaker.Exchanges;
 using Xunit;
 
@@ -9,7 +10,7 @@ namespace TradeCaretaker.Tests
     public class PerioderTests
     {
         [Fact]
-        public void Should_Return_Latest_Trade_From_Period_When_All_Data_Match_In_One_Period()
+        public async Task Should_Return_Latest_Trade_From_Period_When_All_Data_Match_In_One_Period()
         {
             //arrange
             int periodLength = 10;
@@ -29,20 +30,20 @@ namespace TradeCaretaker.Tests
             int numberOfexecution = 0;
 
             //act
-            perioder.Periodify(trades, periodStart, periodEnd, periodLength, OnPeriod);
+            await perioder.Periodify(trades, periodStart, periodEnd, periodLength, OnPeriod);
 
             //assert
             Assert.Equal(1, numberOfexecution);
 
-            void OnPeriod(Trade obj)
+            Task OnPeriod(DateTime periodDate, Trade obj)
             {
                 Assert.Equal(expected, obj);
-                numberOfexecution++;
+                return Task.FromResult(numberOfexecution++);
             }
         }
 
         [Fact]
-        public void Should_Return_Latest_Trade_From_Period_For_Each_Period()
+        public async Task Should_Return_Latest_Trade_From_Period_For_Each_Period()
         {
             //arrange
             int periodLength = 10;
@@ -75,20 +76,21 @@ namespace TradeCaretaker.Tests
             int numberOfexecution = 0;
 
             //act
-            perioder.Periodify(trades, periodStart, periodEnd, periodLength, OnPeriod);
+            await perioder.Periodify(trades, periodStart, periodEnd, periodLength, OnPeriod);
 
             //assert
             Assert.Equal(3, numberOfexecution);
 
-            void OnPeriod(Trade obj)
+            Task OnPeriod(DateTime periodDate, Trade obj)
             {
                 numberOfexecution++;
                 Assert.Equal(expectedOnPeriod[numberOfexecution - 1], obj);
+                return Task.FromResult(2);
             }
         }
 
         [Fact]
-        public void If_In_Period_Is_Empty_Return_Previous_Trade()
+        public async Task If_In_Period_Is_Empty_Return_Previous_Trade()
         {
             //arrange
             int periodLength = 10;
@@ -121,15 +123,16 @@ namespace TradeCaretaker.Tests
             int numberOfexecution = 0;
 
             //act
-            perioder.Periodify(trades, periodStart, periodEnd, periodLength, OnPeriod);
+            await perioder.Periodify(trades, periodStart, periodEnd, periodLength, OnPeriod);
 
             //assert
             Assert.Equal(3, numberOfexecution);
 
-            void OnPeriod(Trade obj)
+            Task OnPeriod(DateTime periodDate, Trade obj)
             {
                 numberOfexecution++;
                 Assert.Equal(expectedOnPeriod[numberOfexecution - 1], obj);
+                return Task.FromResult(0);
             }
         }
     }

@@ -11,6 +11,7 @@ namespace TradeCaretaker.Framework
             builder.RegisterType<BackFillStorage>().As<IBackfillStorage>().SingleInstance();
             builder.RegisterType<Backfill.Backfill>().As<IBackFill>().SingleInstance();
             builder.RegisterType<Poloniex>().As<IExchange>().SingleInstance();
+            builder.RegisterType<Simulation>().As<ISimulation>().SingleInstance();
 
             base.Load(builder);
         }
