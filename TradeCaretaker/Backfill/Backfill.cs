@@ -11,7 +11,7 @@ namespace TradeCaretaker.Backfill
         private readonly IBusClient _bus;
         private readonly IExchange _exchange;
         private readonly IBackfillStorage _storage;
-        private readonly int SIZE_OF_BIN = 6;
+        private readonly int SIZE_OF_BIN = 3;
 
         public Backfill(IExchange exchange, IBackfillStorage storage, IBusClient bus)
         {
@@ -27,9 +27,7 @@ namespace TradeCaretaker.Backfill
             var bins = (int) Math.Ceiling((decimal) periodDifference / SIZE_OF_BIN);
 
             if (bins == 0) bins = 1;
-
-            await _storage.CreateIfNotExists(options.Asset);
-
+            
             var dateFrom = options.DateFrom;
             var dateTo = options.DateFrom;
 

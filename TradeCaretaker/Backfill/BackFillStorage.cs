@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using TradeCaretaker.Exchanges;
 
 namespace TradeCaretaker.Backfill
@@ -16,18 +16,24 @@ namespace TradeCaretaker.Backfill
             _database = database;
         }
 
-        public async Task CreateIfNotExists(string name)
+        public async Task StoreTrades(string name, IEnumerable<Trade> trades)
         {
-            /// for debug purpose only;
-            await _database.DropCollectionAsync(name);
+            var collection = _database.GetCollection<Trade>(name);
 
-            await _database.CreateCollectionAsync(name);
+            if (collection == null)
+            {
+                await _database.CreateCollectionAsync(name);
+                collection = _database.GetCollection<Trade>(name);
+            }
+
+            await collection.InsertManyAsync(trades);
         }
 
-        public Task StoreTrades(string name, IEnumerable<Trade> trades)
+        public Task<List<Trade>> GetTrades(string name, DateTime dateFrom, DateTime dateTo)
         {
-            var collection = _database.GetCollection<BsonDocument>(name);
-            return collection.InsertManyAsync(trades.Select(trade => trade.ToBsonDocument()));
+            var collection = _database.GetCollection<Trade>(name);
+            return collection.AsQueryable().Where(trade => trade.Date > dateFrom && trade.Date < dateTo)
+                .ToListAsync();
         }
     }
 }
