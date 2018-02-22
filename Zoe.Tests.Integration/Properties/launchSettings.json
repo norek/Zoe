@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Trader.Tests.Integration": {
+      "commandName": "Project"
+    },
+    "Zoe.Tests.Integration": {
+      "commandName": "Project"
+    }
+  }
+}

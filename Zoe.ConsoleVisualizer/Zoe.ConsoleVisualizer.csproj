@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+    <PackageReference Include="RawRabbit" Version="2.0.0-rc3" />
+    <PackageReference Include="RawRabbit.DependencyInjection.Autofac" Version="2.0.0-rc3" />
+    <PackageReference Include="RawRabbit.Extensions" Version="1.10.4" />
+    <PackageReference Include="RawRabbit.Operations.Subscribe" Version="2.0.0-rc3" />
+    <PackageReference Include="RawRabbit.Operations.Tools" Version="2.0.0-rc3" />
+    <PackageReference Include="RawRabbit.vNext" Version="2.0.0-beta8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zoe.Messages\Zoe.Messages.csproj" />
+  </ItemGroup>
+
+</Project>
